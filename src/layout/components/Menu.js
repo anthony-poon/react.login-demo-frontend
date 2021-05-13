@@ -22,7 +22,6 @@ const MENU_CONFIG = {
 
 const Menu = ({ userType, isActive, onClose }) => {
     const items = MENU_CONFIG[userType] ?? [];
-    console.log(items);
     return (
         <div
             className={"layout-menu__container " + (isActive ? "layout-menu__container--active" : "")}

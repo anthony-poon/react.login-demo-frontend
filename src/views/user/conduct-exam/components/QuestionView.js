@@ -1,9 +1,9 @@
 import React from "react";
 import "./question-view.scss";
 
-const OptionNode = ({ label, children, isSelected, onSelect }) => {
+const AnswerNode = ({ label, children, selected, onSelect }) => {
     return (
-        <div className={"py-2 test-question__answer " + ( isSelected ? "test-question__answer--selected" : "")} onClick={onSelect}>
+        <div className={"py-2 test-question__answer " + ( selected ? "test-question__answer--selected" : "")} onClick={onSelect}>
             <div className="test-question__answer-label" >
                 {label}
             </div>
@@ -17,7 +17,7 @@ const OptionNode = ({ label, children, isSelected, onSelect }) => {
 const QuestionView = ({ pageIndex, question, onSelect }) => {
     const {
         statement,
-        options,
+        answers,
     } = question;
     const questionIndex = pageIndex - 1;
     return (
@@ -27,17 +27,17 @@ const QuestionView = ({ pageIndex, question, onSelect }) => {
                 {statement}
             </p>
             {
-                options.map(({ statement, isSelected }, index) => (
-                    <OptionNode
+                answers.map(({ statement, selected }, index) => (
+                    <AnswerNode
                         key={index}
                         label={String.fromCharCode(index + 65)}
                         onSelect={() => {
                             onSelect(questionIndex, index);
                         }}
-                        isSelected={isSelected}
+                        selected={selected}
                     >
                         {statement}
-                    </OptionNode>
+                    </AnswerNode>
                 ))
             }
         </div>

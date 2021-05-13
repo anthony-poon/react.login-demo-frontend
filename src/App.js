@@ -10,6 +10,7 @@ import LoginApp from "./views/login/LoginApp";
 import {connect} from "react-redux";
 import AdminExamApp from "./views/admin/AdminExamApp";
 import ConductExamApp from "./views/user/conduct-exam/ConductExamApp";
+import ListExamApp from "./views/user/ListExamApp";
 
 
 const PrivateRoutes = ({ userType }) => {
@@ -17,8 +18,11 @@ const PrivateRoutes = ({ userType }) => {
         case "ROLE_USER":
             return (
                 <Switch>
-                    <Route path={"/user/exam"}>
+                    <Route path={"/user/exam/:id"}>
                         <ConductExamApp/>
+                    </Route>
+                    <Route path={"/user/exam"}>
+                        <ListExamApp/>
                     </Route>
                     <Redirect from={"*"} to={"/user/exam"}/>
                 </Switch>
