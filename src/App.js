@@ -3,41 +3,45 @@ import {
     BrowserRouter as Router,
     Switch,
     Route,
-    Link,
     Redirect
 } from "react-router-dom";
 import DefaultLayout from "./layout/DefaultLayout";
 import LoginApp from "./views/login/LoginApp";
-import LogoutApp from "./views/logout/LogoutApp";
+import {connect} from "react-redux";
 
 
 const PrivateRoutes = ({ userType }) => {
     switch (userType) {
         case "ROLE_USER":
             return (
-                <Route path={"/exam"}>Exam</Route>
+                <Switch>
+                    <Route path={"/user/exam"}>Exam</Route>
+                    <Redirect from={"*"} to={"/user/exam"}/>
+                </Switch>
             );
         case "ROLE_ADMIN":
             return (
-                <Route path={"/admin/exam"}>Exam</Route>
+                <Switch>
+                    <Route path={"/admin/exam"}>Exam</Route>
+                    <Redirect from={"*"} to={"/admin/exam"}/>
+                </Switch>
+
             )
         default:
             return (
-                <Redirect from={"/"} to={"/login"}/>
+                <Switch>
+                    <Redirect from={"*"} to={"/login"}/>
+                </Switch>
             )
     }
 }
 
-function App(props) {
-    const {
-        userType
-    } = props;
+function App({ userType }) {
     return (
         <Router>
             <DefaultLayout>
                 <Switch>
                     <Route path={"/login"} component={LoginApp}/>
-                    <Route path={"/logout"} component={LogoutApp}/>
                     <PrivateRoutes userType={userType}/>
                 </Switch>
             </DefaultLayout>
@@ -45,4 +49,15 @@ function App(props) {
     );
 }
 
-export default App;
+
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.login.jwt !== null,
+        userType: state.login.userType
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    null
+)(App)

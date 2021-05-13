@@ -12,16 +12,8 @@ const initState = {
 export default function(state = initState, action) {
     switch (action.type) {
         case REHYDRATE:
-            const exp = action.payload && action.payload.login ? action.payload.login.expireAt : null;
-            const expireAt = moment.unix(exp);
-            if (exp && expireAt.isAfter(moment())) {
-                return {
-                    ...action.payload.login
-                }
-            } else {
-                return {
-                    ...initState
-                }
+            return {
+                ...action.payload.login
             }
         case APP_LOGIN:
             const jwt = action.payload;

@@ -3,17 +3,18 @@ import "./menu.scss";
 import {Link, NavLink} from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { faUserCircle, faTimes } from "@fortawesome/free-solid-svg-icons";
+import {connect} from "react-redux";
 
 const MENU_CONFIG = {
     "ROLE_ADMIN": [
         {
-            "test": "View Exam",
+            "text": "View Exam",
             "url": "/admin/exam",
         }
     ],
     "ROLE_USER": [
         {
-            "test": "Take Exam",
+            "text": "Take Exam",
             "url": "/exam",
         }
     ]
@@ -21,14 +22,15 @@ const MENU_CONFIG = {
 
 const Menu = ({ userType, isActive, onClose }) => {
     const items = MENU_CONFIG[userType] ?? [];
+    console.log(items);
     return (
         <div
             className={"layout-menu__container " + (isActive ? "layout-menu__container--active" : "")}
-            onMouseLeave={() => onClose()}
+            onMouseLeave={onClose}
         >
             <div className={"layout-menu__header"}>
                 <div className={"text-right d-block d-md-none"}>
-                    <button className={"btn btn-link mr-3 text-white"} onClick={() => onClose()}>
+                    <button className={"btn btn-link mr-3 text-white"} onClick={onClose}>
                         <FontAwesomeIcon icon={faTimes}/>
                     </button>
                 </div>
@@ -39,7 +41,7 @@ const Menu = ({ userType, isActive, onClose }) => {
             <div className={"layout-menu__body"}>
                 {
                     items.map(({text, url}, index) => (
-                        <NavLink exact to={url} className={"layout-menu__item px-4 py-2"} key={index} onClick={() => onClose(false)}>
+                        <NavLink exact to={url} className={"layout-menu__item px-4 py-2"} key={index} onClick={onClose}>
                             { text }
                         </NavLink>
                     ))
@@ -54,4 +56,14 @@ const Menu = ({ userType, isActive, onClose }) => {
     )
 }
 
-export default Menu;
+const mapStateToProps = state => {
+    return {
+        isLoggedIn: state.login.jwt !== null,
+        userType: state.login.userType
+    }
+};
+
+export default connect(
+    mapStateToProps,
+    null
+)(Menu)

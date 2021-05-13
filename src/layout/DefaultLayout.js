@@ -17,14 +17,4 @@ const DefaultLayout = ({ children }) => {
     );
 }
 
-const mapStateToProps = state => {
-    return {
-        isLoggedIn: state.login.jwt !== null,
-        userType: state.login.userType
-    }
-};
-
-export default connect(
-    mapStateToProps,
-    null
-)(DefaultLayout)
+export default DefaultLayout;
