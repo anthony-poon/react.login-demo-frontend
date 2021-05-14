@@ -1,0 +1,49 @@
+@import "../../../../var";
+
+.review-question__wrapper{
+    .review-question__answer {
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+        .review-question__answer-label {
+            margin-left: 2rem;
+            margin-right: 2rem;
+            padding: 0 1px 2px 0;
+            border-radius: 50%;
+            border: 1px solid $primary;
+            height: 2rem;
+            width: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-transform: uppercase;
+            color: $primary;
+            transition: 0.3s;
+        }
+        .review-question__answer-statement {
+            color: $primary;
+            transition: 0.3s;
+            >p:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    .review-question__answer.review-question__answer--selected {
+        .review-question__answer-label {
+            color: white;
+            background-color: $primary;
+        }
+    }
+
+    .review-question__answer:not(.review-question__answer--selected):hover {
+        .review-question__answer-label {
+            color: $primary;
+            border-color: $primary;
+            background-color: white;
+        }
+        .review-question__answer-statement {
+            color: $primary;
+        }
+    }
+}

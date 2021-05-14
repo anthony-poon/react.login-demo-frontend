@@ -1,8 +1,8 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import API from "../../share/api";
 import {Link} from "react-router-dom";
 
-const ListExamApp = () => {
+const UserListExamApp = () => {
     const [isExpended, setExpended] = useState(false);
     const [ids, setIds] = useState([]);
     useEffect( () => {
@@ -19,6 +19,7 @@ const ListExamApp = () => {
         <div className={"container"}>
             <div className={"pt-5"}>
                 <div className="dropdown">
+                    <h5 className={"mb-4"}>User View</h5>
                     <button
                         className="btn btn-secondary dropdown-toggle"
                         type="button"
@@ -39,4 +40,4 @@ const ListExamApp = () => {
     )
 }
 
-export default ListExamApp;
+export default UserListExamApp;

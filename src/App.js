@@ -8,9 +8,10 @@ import {
 import DefaultLayout from "./layout/DefaultLayout";
 import LoginApp from "./views/login/LoginApp";
 import {connect} from "react-redux";
-import AdminExamApp from "./views/admin/AdminExamApp";
+import AdminListExamApp from "./views/admin/AdminListExamApp";
 import ConductExamApp from "./views/user/conduct-exam/ConductExamApp";
-import ListExamApp from "./views/user/ListExamApp";
+import UserListExamApp from "./views/user/UserListExamApp";
+import ReviewExamApp from "./views/admin/review-exam/ReviewExamApp";
 
 
 const PrivateRoutes = ({ userType }) => {
@@ -22,7 +23,7 @@ const PrivateRoutes = ({ userType }) => {
                         <ConductExamApp/>
                     </Route>
                     <Route path={"/user/exam"}>
-                        <ListExamApp/>
+                        <UserListExamApp/>
                     </Route>
                     <Redirect from={"*"} to={"/user/exam"}/>
                 </Switch>
@@ -30,8 +31,11 @@ const PrivateRoutes = ({ userType }) => {
         case "ROLE_ADMIN":
             return (
                 <Switch>
+                    <Route path={"/admin/exam/:id"}>
+                        <ReviewExamApp/>
+                    </Route>
                     <Route path={"/admin/exam"}>
-                        <AdminExamApp/>
+                        <AdminListExamApp/>
                     </Route>
                     <Redirect from={"*"} to={"/admin/exam"}/>
                 </Switch>
