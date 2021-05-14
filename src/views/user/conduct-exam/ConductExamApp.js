@@ -6,9 +6,6 @@ import EndingView from "./components/EndingView";
 import _ from "lodash";
 import "./conduct-exam-app.scss";
 import API from "../../../share/api";
-import {LOREM_IPSUM_QUESTION} from "./lorem-ipsum";
-
-const USE_LIVE_API = true;
 
 const ConductExamApp = () => {
     const [state, setState] = useState({
@@ -20,24 +17,16 @@ const ConductExamApp = () => {
 
     useEffect(() => {
         (async () => {
-            if (USE_LIVE_API) {
-                const response = await API.user.getOneExam(id);
-                const {
-                    name,
-                    questions
-                } = response;
-                setState((prevState => ({
-                    ...prevState,
-                    examName: name,
-                    questions: _.cloneDeep(questions)
-                })))
-            } else {
-                setState((prevState => ({
-                    ...prevState,
-                    examName: "Lorem Ipsum Exam",
-                    questions: _.cloneDeep(LOREM_IPSUM_QUESTION)
-                })))
-            }
+            const response = await API.user.getOneExam(id);
+            const {
+                name,
+                questions
+            } = response;
+            setState((prevState => ({
+                ...prevState,
+                examName: name,
+                questions: _.cloneDeep(questions)
+            })))
 
         })()
     }, [id])
@@ -72,7 +61,7 @@ const ConductExamApp = () => {
     const handleSelect = async (questionIndex, answerIndex) => {
         const question = questions[questionIndex];
         const answer = question["answers"][answerIndex];
-        USE_LIVE_API && await API.user.answerOneQuestion(question.id, answer.id)
+        await API.user.answerOneQuestion(question.id, answer.id)
         setState(prevState => {
             const clone = _.cloneDeep(prevState.questions);
             clone[questionIndex]["answers"] = question["answers"].map((answer, index) => {

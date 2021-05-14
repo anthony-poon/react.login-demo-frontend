@@ -29,7 +29,7 @@ const LoginApp = ({loginAction}) => {
             const response = await API.authentication.login({ username, password });
             const {
                 accessToken
-            } = response.data;
+            } = response;
             loginAction(accessToken);
             history.push("/");
         } catch (e) {

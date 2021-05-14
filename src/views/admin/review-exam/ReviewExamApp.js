@@ -5,7 +5,6 @@ import API from "../../../share/api";
 import { LOREM_IPSUM_QUESTION } from "./lorem-ipsum";
 import _ from "lodash";
 
-const USE_LIVE_API = true;
 
 const ReviewExamApp = () => {
     const { id } = useParams();
@@ -14,22 +13,15 @@ const ReviewExamApp = () => {
     const [ examName, setExamName ] = useState("");
     useEffect(() => {
         (async () => {
-            if (USE_LIVE_API) {
-                const response = await API.admin.getOneExam(id);
-                const {
-                    name,
-                    score,
-                    questions
-                } = response;
-                setScore(score)
-                setQuestions(_.cloneDeep(questions));
-                setExamName(name);
-            } else {
-                setScore(50);
-                setQuestions( _.cloneDeep(LOREM_IPSUM_QUESTION))
-                setExamName("Lorem Ipsum Exam");
-            }
-
+            const response = await API.admin.getOneExam(id);
+            const {
+                name,
+                score,
+                questions
+            } = response;
+            setScore(score)
+            setQuestions(_.cloneDeep(questions));
+            setExamName(name);
         })()
     }, [id])
     return (
