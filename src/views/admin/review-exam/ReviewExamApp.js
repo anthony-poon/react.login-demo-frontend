@@ -5,7 +5,7 @@ import API from "../../../share/api";
 import { LOREM_IPSUM_QUESTION } from "./lorem-ipsum";
 import _ from "lodash";
 
-const USE_LIVE_API = false;
+const USE_LIVE_API = true;
 
 const ReviewExamApp = () => {
     const { id } = useParams();
