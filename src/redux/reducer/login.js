@@ -12,9 +12,8 @@ const initState = {
 export default function(state = initState, action) {
     switch (action.type) {
         case REHYDRATE:
-            return {
-                ...action.payload.login
-            }
+            const s = action.payload ? {...action.payload.login} : { ...initState}
+            return s
         case APP_LOGIN:
             const jwt = action.payload;
             const claims = JSON.parse(atob(jwt.split(".")[1]));
